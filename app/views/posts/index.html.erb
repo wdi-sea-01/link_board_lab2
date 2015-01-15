@@ -1,0 +1,24 @@
+<h3>Latest posts</h3>
+<table class="table">
+<tr>
+    <th>Score</th>
+    <th>Title</th>
+    <th>User</th>
+    <th>Posted</th>
+    <th>Comments</th>
+</tr>
+<% if @posts.any? %>
+    <% @posts.each do |post| %>
+        <tr>
+            <td>0</td>
+            <td><%= link_to post.title,post.link, :target=>'_blank' %></td>
+            <td><%= post.user ? post.user.name : 'Unknown' %></td>
+            <td><%= format_creation_time post %> </td>
+            <td>0</td>
+        </tr>
+    <% end %>
+<% else %>
+    <tr>
+        <td>No posts</td>
+    </tr>
+<% end %>
