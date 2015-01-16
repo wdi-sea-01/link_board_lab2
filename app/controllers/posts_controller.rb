@@ -32,10 +32,24 @@ class PostsController < ApplicationController
     def destroy
     end    
 
+    def comments
+      @post = Post.find_by_id(params[:id])
+      @comment = Comment.new
+    end
+
+    def create_comment
+      return unless is_authenticated?
+      user = User.find_by_id(@current_user['id'])      
+      post = Post.find_by_id(params[:id])
+      user.comments << post.comments.create({body:params[:comment][:body]})
+      redirect_to post_comments_path
+    end
+
   private
 
   def post_params
     params.require(:post).permit(:title,:link)
   end
+
 
 end
