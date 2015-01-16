@@ -63,3 +63,26 @@ Comment.first.votes.length
 | POST | /posts/:id/votes | add a vote to a post |
 
 
+#Views
+
+###/posts
+
+* To the left of each post:
+    * display vote count
+    * Have an upvote button
+        * Adds a vote to that post for that user
+        * Shouldn't allow a user to upvote  the same post twice
+
+###/posts/1/comments
+
+* Next to each comment:
+    * display vote count
+    * Have an upvote button
+        * Adds a vote to that comment for that user
+        * Shouldn't allow user to upvote the same comment twice
+
+
+##Bonus
+
+* Sort posts by votes
+* Sort comments by votes
