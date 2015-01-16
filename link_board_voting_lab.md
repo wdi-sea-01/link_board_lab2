@@ -53,6 +53,10 @@ User.first.votes
 Post.first.votes.length
 Comment.first.votes.length
 
+#check belongs_to (polymorphic)
+Vote.first.voteable
+Vote.last.voteable
+
 ```
 
 ##Routes
