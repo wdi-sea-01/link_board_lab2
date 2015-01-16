@@ -13,6 +13,23 @@ class CommentsController < ApplicationController
       redirect_to post_comments_path(parent_post(comment))
     end
 
+    def create_vote
+      return unless is_authenticated?
+      user = User.find_by_id(@current_user['id'])      
+      comment = Comment.find_by_id(params[:id])
+      existing_vote = comment.votes.where(user_id: user.id).any?
+
+      if existing_vote
+        flash[:warning]="you already upvoted this once"
+      else
+        user.votes << comment.votes.create
+      end
+      respond_to do |format|
+        format.json { render json: {result: !existing_vote,votes:comment.votes.length} }
+        format.html {redirect_to post_comments_path(parent_post(comment))}
+      end
+    end    
+
     private
 
     def parent_post comment

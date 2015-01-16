@@ -6,11 +6,17 @@
     <th>User</th>
     <th>Posted</th>
     <th>Comments</th>
-</tr>
-<% if @posts.any? %>
+</tr><% if @posts.any? %>
     <% @posts.each do |post| %>
         <tr>
-            <td>0</td>
+            <td>
+                <% if post.votes.where(user_id:@current_user['id']).any? %>
+                    <i class="glyphicon glyphicon-chevron-up" style="color: #CCCC88;"></i>
+                <% else %>
+                    <%= link_to('<i class="glyphicon glyphicon-chevron-up"></i>'.html_safe, post_votes_path(post), method: :post, class: "ajax-vote") %>
+                <% end %>
+                <span class="vote-count"><%= post.votes.length %></span>
+            </td>
             <td><%= link_to post.title,post.link, :target=>'_blank' %></td>
             <td><%= post.user ? post.user.name : 'Unknown' %></td>
             <td><%= format_creation_time post %> </td>

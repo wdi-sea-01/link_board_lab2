@@ -1,9 +1,15 @@
 <li class="comment">
-    <div>
-        <%= comment.user ? comment.user.name : "Unknown" %>
+    <div class="comment_head">
+        <% if comment.votes.where(user_id:@current_user['id']).any? %>
+            <i class="glyphicon glyphicon-chevron-up" style="color: #CCCC88;"></i>
+        <% else %>
+            <%= link_to '<i class="glyphicon glyphicon-chevron-up"></i>'.html_safe,comment_votes_path(comment), method: :post, class: "ajax-vote" %>
+        <% end %>
+        <em class="vote-count"><%= comment.votes.length %></em>&nbsp;&nbsp;
+        <%= comment.user ? comment.user.name : "Unknown" %>&nbsp;&nbsp;
         <small><%= format_creation_time comment %></small>
     </div>
-    <div>
+    <div class="comment_body">
         <%= comment.body %>
         <%= link_to "reply",new_comment_comment_path(comment) %>
     </div>
